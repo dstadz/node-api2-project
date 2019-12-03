@@ -1,7 +1,7 @@
 const express = require('express')
 const db = require('../data/db')
 const server = express()
-
+server.use(express.json())
 server.get('/', (req,res) => {
   res.send(`<h3>Oh hi there</h3>`)
 })
@@ -9,6 +9,13 @@ server.get('/', (req,res) => {
 server.post("/api/posts", (req,res) => {
   const newPost = req.body
   console.log(newPost)
+  if(!(newPost.title && newPost.contents))res.status(400).json({ errorMessage: "Please provide title and contents for the post." })
+  else{
+    db.insert(newPost)
+      .then(post => { res.status(201).json({newPost})})
+      .catch(err => { res.status(500).json({ error: "There was an error while saving the post to the database" })})
+  }
+
 })
 
 server.post("/api/posts/:id/comments", (req,res) => {

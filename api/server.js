@@ -20,6 +20,7 @@ server.post("/api/posts", (req,res) => {
 
 server.post("/api/posts/:id/comments", (req,res) => {
   const id = req.params.id
+  req.body.post_id = id
   const com = req.body
   db.findById(id)
     .then(post =>{
@@ -27,9 +28,10 @@ server.post("/api/posts/:id/comments", (req,res) => {
       if(post.length===0) res.status(404).json({ message: "The post with the specified ID does not exist." })
       else if (!com.text) res.status(400).json({ errorMessage: "Please provide text for the comment." })
       else{
-        db.insertComment(com.text)
+        console.log('posting')
+        db.insertComment(com)
         .then(com => {
-          console.log("ment:",com)
+          console.log("com:",com)
           res.status(201).json(com)
         })
         .catch(err => {

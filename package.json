@@ -5,7 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "server": "nodemon index.js"
+    "server": "nodemon index.js",
+    "start":"nodemon index.js"
   },
   "dependencies": {
     "express": "^4.17.1",
@@ -14,5 +15,12 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.1"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "10.x"
   }
 }

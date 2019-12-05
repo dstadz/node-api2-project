@@ -20,6 +20,8 @@ server.post("/api/posts", (req,res) => {
 
 server.post("/api/posts/:id/comments", (req,res) => {
   const id = req.params.id
+
+  //shoutout to Nadeem for this line
   req.body.post_id = id
   const com = req.body
   db.findById(id)
